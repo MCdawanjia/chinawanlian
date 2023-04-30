@@ -1,9 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Frontend HTML</title>
+</head>
+<body>
+<!-- Your frontend HTML code here -->
+
 <script type="text/javascript">
-var zhongwen = navigator.language;
-if (zhongwen=="zh-CN"){
-window.location.href='https://cn.wanliantelecom.ml:58082'
-}
-else{
-window.location.href='https://global.wanliantelecom.ml'
-}
+	// Check if visitor is from Mainland China
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET", "https://ipinfo.io/?callback", true);
+	xhr.onreadystatechange = function () {
+		if (xhr.readyState === 4 && xhr.status === 200) {
+		    var result = JSON.parse(xhr.responseText.replace(/.+?({.+}).+/, '$1'));
+		    var country = result.country;
+			
+		    if (country === 'CN') {
+		        window.location.href = 'https://cn.wanliantelecom.ml:58082/';
+		    }
+        else {
+            window.location.href = 'https://global.wanliantelecom.ml/';
+		    }
+	};
+	xhr.send();
 </script>
+</body>
+</html>
